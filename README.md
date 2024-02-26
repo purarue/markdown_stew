@@ -4,7 +4,7 @@ A single-page HTML generator that takes `.md`, `.txt` or `.html` files as input,
 
 So - it just throws all the files you give it into a single file, hence the name.
 
-I use this for notes or documentation, where I want to be able to switch between a raw/rendered versions of the file, but don't want to use a full-blown wiki or CMS.
+I use this for notes or documentation, where I want to be able to switch between a raw/rendered versions of the file, or create a page I can scroll through on my phone, but don't want to use a full-blown wiki or CMS.
 
 As an example of the output, see [here](https://sean.fish/p/markdown_stew_example.html)
 
