@@ -1,0 +1,134 @@
+package markdown_stew
+
+// this represents the whole index.html file
+// it is a single page with a list of all the files passed as input,
+// which are each rendered if theyre markdown into HTML
+//
+// this should be a SPA, so the user clicks on a file and it replaces
+// the current page with that page's content
+// the filename is converted into a slug, and whenever a user clicks on a file
+// the slug is added to the URL hash
+//
+// on load, this should check the URL hash and if it is not empty, it should
+// load the file with that slug
+
+templ Index(files []Template, title string, language string, darkMode bool, picoText string) {
+	<!DOCTYPE html>
+	<html lang={language} if darkMode {
+		data-theme="dark"
+	} else {
+		data-theme="light"
+	}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+		<title>{title}</title>
+		<style>
+			pre{
+					white-space:pre-wrap;
+					white-space:-moz-pre-wrap;
+					white-space:-pre-wrap;
+					white-space:-o-pre-wrap;
+					word-wrap:break-word
+			}
+			.hide {
+				display:none
+			}
+			.underline {
+				border-bottom:1px solid #e7e8eb
+			}
+		</style>
+		@templ.Raw(picoText)
+		</head>
+		<body class="container">
+			<header>
+				<nav class="grid">
+					<ul>
+						<li><h1>{title}</h1></li>
+					</ul>
+					<ul style="justify-content: end">
+						<li>
+							<button id="theme-toggler" onclick="toggleTheme()" title="Toggle theme">
+								if darkMode {
+									🌙
+								} else {
+									🔆
+								}
+							</button>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<select id="file-select" aria-label="Select a file">
+					for _, file := range files {
+						<option data-hash={file.Slug}>
+							{file.Title}
+						</option>
+					}
+				</select>
+				<div>
+					for index, file := range files {
+						<div id={file.Slug} class={ "file", templ.KV("hide", index > 0) }>
+							<hr />
+							<div>@templ.Raw(file.Rendered)</div>
+						</div>
+					}
+			  </div>
+			</main>
+			<footer>
+			</footer>
+		</body>
+		<script>
+			function setHash(hash) {
+				history.pushState(null, null, "#" + hash);
+			}
+
+			function toggleTheme() {
+				const theme = document.documentElement.getAttribute("data-theme");
+				const themeToggler = document.getElementById("theme-toggler");
+
+				if (theme === "dark") {
+					document.documentElement.setAttribute("data-theme", "light");
+					themeToggler.textContent = "☀️";
+				} else {
+					document.documentElement.setAttribute("data-theme", "dark");
+					themeToggler.textContent = "🌙";
+				}
+			}
+
+			function updatePage() {
+				const hash = window.location.hash;
+				if (!hash) {
+					return;
+				}
+				console.log(`updating page to show hash: ${hash}`);
+				const showFile = document.getElementById(hash.slice(1));
+				if (!showFile) {
+					return;
+				}
+				const showFileId = showFile.id;
+				document.querySelectorAll(".file").forEach(function (file) {
+					if (file.id !== showFileId) {
+						file.classList.add("hide");
+					} else {
+						file.classList.remove("hide");
+					}
+				});
+			}
+
+			const fileSelect = document.getElementById("file-select");
+			fileSelect.addEventListener("change", () => {
+				const hash =
+					fileSelect.options[fileSelect.selectedIndex].getAttribute("data-hash");
+				setHash(hash);
+				updatePage();
+			});
+
+			window.addEventListener("popstate", updatePage);
+			window.addEventListener("hashchange", updatePage);
+			window.addEventListener("DOMContentLoaded", updatePage);
+		</script>
+	</html>
+}
