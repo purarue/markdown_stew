@@ -37,7 +37,7 @@ func cacheFilePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(cache_dir, "markdown_condenser.pico.css"), nil
+	return filepath.Join(cache_dir, "markdown_stew.pico.css"), nil
 }
 
 func downloadPicoCSS() error {
