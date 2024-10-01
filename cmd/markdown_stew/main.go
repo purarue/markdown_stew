@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/seanbreckenridge/markdown_stew"
 )
@@ -15,12 +16,14 @@ type Config struct {
 	language string
 	title    string
 	darkMode bool
+	embedCss string
 }
 
 func ParseConfig() *Config {
 	language := flag.String("language", "en", "language for HTML page")
 	title := flag.String("title", "", "title to use")
 	darkMode := flag.Bool("dark-mode", false, "default to dark mode")
+	embedCss := flag.String("css", "", "raw css string to embed into page")
 	flag.Usage = func() {
 		// print usage
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s [flags] <files...>\n", os.Args[0])
@@ -35,11 +38,17 @@ func ParseConfig() *Config {
 		os.Exit(1)
 	}
 
+	embedCssWrapped := ""
+	if len(strings.TrimSpace(*embedCss)) > 0 {
+		embedCssWrapped = fmt.Sprintf("<style>%s</style>", *embedCss)
+	}
+
 	return &Config{
 		files:    files,
 		language: *language,
 		title:    *title,
 		darkMode: *darkMode,
+		embedCss: embedCssWrapped,
 	}
 }
 
@@ -72,7 +81,7 @@ func stew() error {
 
 	picoWrapped := fmt.Sprintf("<style>%s</style>", picoText)
 
-	template := markdown_stew.Index(tmpls, config.title, config.language, config.darkMode, picoWrapped)
+	template := markdown_stew.Index(tmpls, config.title, config.language, config.darkMode, picoWrapped, config.embedCss)
 	template.Render(context.Background(), os.Stdout)
 	return nil
 }

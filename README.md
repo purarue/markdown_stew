@@ -32,6 +32,8 @@ If you want to hack on the template, see [templ docs](https://templ.guide/quick-
 
 ```
 Usage: markdown_stew [flags] <files...>
+  -css string
+    	raw css string to embed into page
   -dark-mode
     	default to dark mode
   -language string
