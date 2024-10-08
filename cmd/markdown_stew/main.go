@@ -12,17 +12,19 @@ import (
 )
 
 type Config struct {
-	files    []string
-	language string
-	title    string
-	darkMode bool
-	embedCss string
+	files      []string
+	language   string
+	title      string
+	darkMode   bool
+	embedCss   string
+	faviconUrl string
 }
 
 func ParseConfig() *Config {
 	language := flag.String("language", "en", "language for HTML page")
 	title := flag.String("title", "", "title to use")
 	darkMode := flag.Bool("dark-mode", false, "default to dark mode")
+	faviconUrl := flag.String("favicon-url", "favicon.ico", "URL for favicon")
 	embedCss := flag.String("css", "", "raw css string to embed into page")
 	flag.Usage = func() {
 		// print usage
@@ -44,11 +46,12 @@ func ParseConfig() *Config {
 	}
 
 	return &Config{
-		files:    files,
-		language: *language,
-		title:    *title,
-		darkMode: *darkMode,
-		embedCss: embedCssWrapped,
+		files:      files,
+		language:   *language,
+		title:      *title,
+		darkMode:   *darkMode,
+		faviconUrl: *faviconUrl,
+		embedCss:   embedCssWrapped,
 	}
 }
 
@@ -81,7 +84,7 @@ func stew() error {
 
 	picoWrapped := fmt.Sprintf("<style>%s</style>", picoText)
 
-	template := markdown_stew.Index(tmpls, config.title, config.language, config.darkMode, picoWrapped, config.embedCss)
+	template := markdown_stew.Index(tmpls, config.title, config.language, config.darkMode, picoWrapped, config.embedCss, config.faviconUrl)
 	template.Render(context.Background(), os.Stdout)
 	return nil
 }

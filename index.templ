@@ -12,7 +12,7 @@ package markdown_stew
 // on load, this should check the URL hash and if it is not empty, it should
 // load the file with that slug
 
-templ Index(files []Template, title string, language string, darkMode bool, picoText string, embedCSS string) {
+templ Index(files []Template, title string, language string, darkMode bool, picoText string, embedCSS string, favicon string) {
 	<!DOCTYPE html>
 	<html lang={language} if darkMode {
 		data-theme="dark"
@@ -22,7 +22,8 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="icon" href={favicon} />
 		<title>{title}</title>
 		<style>
 			pre{
