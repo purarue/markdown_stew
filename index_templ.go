@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 // this represents the whole index.html file
 // it is a single page with a list of all the files passed as input,
-// which are each rendered if theyre markdown into HTML
+// which are each rendered if they're markdown into HTML
 //
 // this should be a SPA, so the user clicks on a file and it replaces
 // the current page with that page's content

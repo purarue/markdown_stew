@@ -10,6 +10,8 @@ As an example of the output, see [here](https://sean.fish/p/markdown_stew_exampl
 
 <img src="https://raw.githubusercontent.com/seanbreckenridge/markdown_stew/main/.github/demo.png" width="500px">
 
+If you want to embed all the images into the HTML file itself, you can use [`monolith`](https://github.com/Y2Z/monolith) on the output HTML file.
+
 ## Install
 
 ```sh
