@@ -45,10 +45,17 @@ func ParseConfig() *Config {
 		embedCssWrapped = fmt.Sprintf("<style>%s</style>", *embedCss)
 	}
 
+	var titleTrimmed string
+	if len(strings.TrimSpace(*title)) == 0 {
+		titleTrimmed = ""
+	} else {
+		titleTrimmed = *title
+	}
+
 	return &Config{
 		files:      files,
 		language:   *language,
-		title:      *title,
+		title:      titleTrimmed,
 		darkMode:   *darkMode,
 		faviconUrl: *faviconUrl,
 		embedCss:   embedCssWrapped,

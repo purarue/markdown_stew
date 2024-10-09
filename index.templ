@@ -24,7 +24,9 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" href={favicon} />
-		<title>{title}</title>
+		if len(title) > 0 {
+			<title>{title}</title>
+		}
 		<style>
 			pre{
 					white-space:pre-wrap;
@@ -46,9 +48,11 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 		<body class="container">
 			<header>
 				<nav class="grid">
-					<ul>
-						<li><h1>{title}</h1></li>
-					</ul>
+					if len(title) > 0 {
+						<ul>
+							<li><h1>{title}</h1></li>
+						</ul>
+					}
 					<ul style="justify-content: end">
 						<li>
 							<button id="theme-toggler" onclick="toggleTheme()" title="Toggle theme">
