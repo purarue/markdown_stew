@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/seanbreckenridge/markdown_stew"
+	"github.com/purarue/markdown_stew"
 )
 
 type Config struct {

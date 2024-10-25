@@ -1,4 +1,4 @@
-module github.com/seanbreckenridge/markdown_stew
+module github.com/purarue/markdown_stew
 
 go 1.21.0
 
