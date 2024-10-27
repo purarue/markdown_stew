@@ -6,7 +6,7 @@ So - it just throws all the files you give it into a single file, hence the name
 
 I use this for notes or documentation, where I want to be able to switch between a raw/rendered versions of the file, or [create a page I can scroll through on my phone](https://github.com/purarue/dotfiles/blob/master/.local/scripts/notes_rendered/Makefile), but don't want to use a full-blown wiki or CMS.
 
-As an example of the output, see [here](https://sean.fish/p/markdown_stew_example.html)
+As an example of the output, see [here](https://purarue.xyz/p/markdown_stew_example.html)
 
 <img src="https://raw.githubusercontent.com/purarue/markdown_stew/main/.github/demo.png" width="500px">
 
