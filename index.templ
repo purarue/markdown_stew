@@ -11,23 +11,25 @@ package markdown_stew
 //
 // on load, this should check the URL hash and if it is not empty, it should
 // load the file with that slug
-
 templ Index(files []Template, title string, language string, darkMode bool, picoText string, embedCSS string, favicon string) {
 	<!DOCTYPE html>
-	<html lang={language} if darkMode {
-		data-theme="dark"
-	} else {
-		data-theme="light"
-	}>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="color-scheme" content="light dark" />
-		<link rel="icon" href={favicon} />
-		if len(title) > 0 {
-			<title>{title}</title>
+	<html
+		lang={ language }
+		if darkMode {
+			data-theme="dark"
+		} else {
+			data-theme="light"
 		}
-		<style>
+	>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<meta name="color-scheme" content="light dark"/>
+			<link rel="icon" href={ favicon }/>
+			if len(title) > 0 {
+				<title>{ title }</title>
+			}
+			<style>
 			pre{
 					white-space:pre-wrap;
 					white-space:-moz-pre-wrap;
@@ -42,15 +44,15 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 				border-bottom:1px solid #e7e8eb
 			}
 		</style>
-		@templ.Raw(embedCSS)
-		@templ.Raw(picoText)
+			@templ.Raw(embedCSS)
+			@templ.Raw(picoText)
 		</head>
 		<body class="container">
 			<header>
 				<nav class="grid">
 					if len(title) > 0 {
 						<ul>
-							<li><h1>{title}</h1></li>
+							<li><h1>{ title }</h1></li>
 						</ul>
 					}
 					<ul style="justify-content: end">
@@ -69,22 +71,23 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 			<main>
 				<select id="file-select" aria-label="Select a file">
 					for _, file := range files {
-						<option data-hash={file.Slug}>
-							{file.Title}
+						<option data-hash={ file.Slug }>
+							{ file.Title }
 						</option>
 					}
 				</select>
 				<div>
 					for index, file := range files {
-						<div id={file.Slug} class={ "file", templ.KV("hide", index > 0) }>
-							<hr />
-							<div>@templ.Raw(file.Rendered)</div>
+						<div id={ file.Slug } class={ "file", templ.KV("hide", index > 0) }>
+							<hr/>
+							<div>
+								@templ.Raw(file.Rendered)
+							</div>
 						</div>
 					}
-			  </div>
+				</div>
 			</main>
-			<footer>
-			</footer>
+			<footer></footer>
 		</body>
 		<script>
 			function setHash(hash) {
