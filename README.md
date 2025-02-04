@@ -38,6 +38,8 @@ Usage: markdown_stew [flags] <files...>
     	raw css string to embed into page
   -dark-mode
     	default to dark mode
+  -favicon-url string
+    	URL for favicon (default "favicon.ico")
   -language string
     	language for HTML page (default "en")
   -title string
