@@ -69,7 +69,7 @@ templ Index(files []Template, title string, language string, darkMode bool, pico
 				</nav>
 			</header>
 			<main>
-				<select id="file-select" aria-label="Select a file">
+				<select id="file-select" aria-label="Select a file" class={ templ.KV("hide", len(files) <= 1) }>
 					for _, file := range files {
 						<option data-hash={ file.Slug }>
 							{ file.Title }
